@@ -1,7 +1,7 @@
 # @paynav/reattempt
 
 [![npm](https://img.shields.io/npm/v/@paynav/reattempt.svg)](https://www.npmjs.com/package/@paynav/reattempt)
-[![license](https://img.shields.io/npm/l/@paynav/reattempt.svg)](./LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![types](https://img.shields.io/npm/types/@paynav/reattempt.svg)](./dist/index.d.ts)
 
 **Card-network retry-compliance engine.** Given a declined Visa or Mastercard

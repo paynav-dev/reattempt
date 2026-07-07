@@ -7,6 +7,17 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 Rule-data updates (new codes, changed caps, fees, or delays) ship as **minor**
 releases; each entry notes the effective date and source.
 
+## [0.1.1] - 2026-07-07
+
+### Fixed
+
+- Corrected the `repository`, `homepage`, and `bugs` URLs to the actual
+  `paynav-dev/reattempt` GitHub org (were `paynav/reattempt`), fixing the
+  Repository/Homepage links on the npm package page.
+- Switched the README license badge to a static MIT badge so it no longer shows
+  "package not found" (the shields.io npm-license lookup was unreliable for the
+  freshly published scoped package).
+
 ## [0.1.0] - 2026-07-07
 
 ### Added
@@ -35,4 +46,5 @@ releases; each entry notes the effective date and source.
 - Exported rule tables, constants, and best-practice heuristics.
 - Dual ESM + CJS builds with bundled TypeScript declarations.
 
-[0.1.0]: https://github.com/paynav/reattempt/releases/tag/v0.1.0
+[0.1.1]: https://github.com/paynav-dev/reattempt/releases/tag/v0.1.1
+[0.1.0]: https://github.com/paynav-dev/reattempt/releases/tag/v0.1.0
