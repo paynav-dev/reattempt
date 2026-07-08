@@ -13,7 +13,16 @@ for the general recipe that applies to any PSP.
 
 ## Run them
 
-From a project with the package installed (`npm install @paynav/reattempt`):
+**From this repo** (install the local package, then run with `tsx`):
+
+```sh
+npm install
+npm run build && npm install .
+npx tsx examples/worldpay-express-cit.ts
+npx tsx examples/worldpay-express-mit.ts
+```
+
+**From a consuming project** (`npm install @paynav/reattempt`):
 
 ```sh
 npx tsx examples/worldpay-express-cit.ts

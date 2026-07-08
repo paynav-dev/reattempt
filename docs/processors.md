@@ -34,9 +34,9 @@ tells you where to look for any other processor.
 Most gateways return **two** kinds of "decline code":
 
 1. **Their own abstraction** — a normalized, gateway-branded status
-   (Stripe `decline_code`, Adyen `refusalReason`, Worldpay `ExpressResponseCode`).
-   Convenient for display, but **not** a network code and **not** what this
-   engine wants.
+   (Stripe `outcome.decline_code` / `outcome.advice_code`, Adyen `refusalReason`,
+   Worldpay `ExpressResponseCode`). Convenient for display, but **not** a network
+   code and **not** what this engine wants.
 2. **The raw network/issuer code** — the ISO 8583 reason code the issuer
    actually returned (`05`, `51`, `14`, …), usually on a separate field
    (Worldpay `HostResponseCode`, Stripe `network_decline_code`, Adyen
@@ -145,14 +145,20 @@ processor's current docs — these are starting points, not guarantees**):
 | Processor | Raw network code | Merchant Advice Code |
 | --- | --- | --- |
 | **Worldpay Express** | `HostResponseCode` | `MerchantAdviceCode` |
-| **Stripe** | `charge.outcome.network_decline_code` | `charge.payment_method_details.card.network_advice_code` |
+| **Stripe** | `charge.outcome.network_decline_code` | `charge.outcome.network_advice_code` |
 | **Adyen** | `additionalData.refusalReasonRaw` | `additionalData.merchantAdviceCode` |
 | **Braintree** | `processorResponseCode` | `merchantAdvice` (where surfaced) |
 | **Checkout.com** | `response_code` | `processing.merchant_advice_code` (where surfaced) |
 
+Stripe also exposes abstracted `charge.outcome.advice_code` values
+(`do_not_try_again`, `try_again_later`, `confirm_card_data`) — use those to
+detect *that* a decline happened, but pass the raw `network_advice_code` as
+`merchantAdviceCode`, not the enum.
+
 If a processor only gives you its own abstracted status and never the raw
-network code, you can still get most of the value by mapping its status strings
-to the closest network code — but the raw code is always the better input.
+network code, you cannot use this engine reliably — find the raw field first,
+or switch to a processor/API version that surfaces it. Mapping abstracted status
+strings to guessed network codes will mis-classify declines.
 
 > ⚠️ Card-network rules, fees, and response-code semantics change and vary by
 > region and program. This mapping reflects the cited Worldpay spec; always

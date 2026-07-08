@@ -46,7 +46,10 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "docs",
+    "examples",
+    "CHANGELOG.md"
   ],
   "publishConfig": {
     "access": "public"

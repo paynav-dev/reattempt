@@ -111,10 +111,16 @@ export function mitSubtypeFromPaymentType(
 /**
  * `true` when the Express response is a decline the engine should evaluate.
  * Approvals (`"0"`), partial approvals (`"5"`), and duplicate approvals (`"22"`)
- * are not declines — do not evaluate them.
+ * are not declines — do not evaluate them. A decline without a
+ * {@link WorldpayExpressResponse.HostResponseCode} is not evaluable either
+ * (gateway/system errors may set `ExpressResponseCode` alone).
  */
 export function isExpressDecline(res: WorldpayExpressResponse): boolean {
-  return !["0", "5", "22"].includes(res.ExpressResponseCode);
+  return (
+    !["0", "5", "22"].includes(res.ExpressResponseCode) &&
+    res.HostResponseCode !== undefined &&
+    res.HostResponseCode.trim() !== ""
+  );
 }
 
 /** Extra history/clock inputs to forward to the engine, plus context/network overrides. */

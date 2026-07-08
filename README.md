@@ -249,9 +249,10 @@ and Mastercard CNP transactions.
 Out of scope (by design): the **stored-credential framework** itself
 (CIT-establishes-credential flags, network transaction-ID chaining, `off_session`
 parameters) — your PSP owns that plumbing; a **persistence/store layer** (this
-function is stateless — you pass the attempt history in); mapping PSP-specific
-codes; and networks beyond Visa/Mastercard. This decides *whether and when* to
-attempt, not *how* the auth is composed.
+function is stateless — you pass the attempt history in); and networks beyond
+Visa/Mastercard. PSP field mapping lives in [`docs/processors.md`](./docs/processors.md)
+and [`examples/`](./examples/) — not in the library API. This decides *whether
+and when* to attempt, not *how* the auth is composed.
 
 ## Versioning
 

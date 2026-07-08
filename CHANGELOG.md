@@ -24,6 +24,13 @@ releases; each entry notes the effective date and source.
 
 Docs only — no changes to the engine or its rule tables.
 
+### Fixed
+
+- Corrected Stripe MAC field path to `charge.outcome.network_advice_code` (was
+  incorrectly pointed at `payment_method_details.card`).
+- `isExpressDecline()` now requires a non-empty `HostResponseCode`.
+- npm tarball now includes `docs/`, `examples/`, and `CHANGELOG.md`.
+
 ## [0.1.1] - 2026-07-07
 
 ### Fixed
