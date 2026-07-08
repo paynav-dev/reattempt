@@ -106,6 +106,20 @@ Integration shape:
   `recurring_revoked` / `hard_decline` verdict short-circuits into your
   "update your card" flow and pauses the subscription.
 
+## Using it with your PSP
+
+The engine takes **raw Visa/Mastercard network codes**, so it works behind any
+processor that surfaces them — feed it the raw issuer response code (and, for
+Mastercard, the Merchant Advice Code), not your gateway's own abstracted status.
+
+- **[docs/processors.md](./docs/processors.md)** — the field-by-field mapping.
+  A full worked mapping for **Worldpay Express** (`HostResponseCode` →
+  `declineCode`, `MerchantAdviceCode` → `merchantAdviceCode`, `CardLogo` →
+  `network`, `PaymentType` → `context`), plus the general recipe and where the
+  raw code lives for Stripe / Adyen / Braintree / Checkout.com.
+- **[examples/](./examples/)** — runnable CIT (checkout) and MIT (dunning)
+  walkthroughs against Worldpay Express, with a reusable mapping helper.
+
 ## API
 
 ### `evaluateReattempt(input): ReattemptDecision`
@@ -235,9 +249,10 @@ and Mastercard CNP transactions.
 Out of scope (by design): the **stored-credential framework** itself
 (CIT-establishes-credential flags, network transaction-ID chaining, `off_session`
 parameters) — your PSP owns that plumbing; a **persistence/store layer** (this
-function is stateless — you pass the attempt history in); mapping PSP-specific
-codes; and networks beyond Visa/Mastercard. This decides *whether and when* to
-attempt, not *how* the auth is composed.
+function is stateless — you pass the attempt history in); and networks beyond
+Visa/Mastercard. PSP field mapping lives in [`docs/processors.md`](./docs/processors.md)
+and [`examples/`](./examples/) — not in the library API. This decides *whether
+and when* to attempt, not *how* the auth is composed.
 
 ## Versioning
 

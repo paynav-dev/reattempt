@@ -7,6 +7,30 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 Rule-data updates (new codes, changed caps, fees, or delays) ship as **minor**
 releases; each entry notes the effective date and source.
 
+## [0.1.2] - 2026-07-07
+
+### Added
+
+- **`docs/processors.md`** — how to feed the engine from a PSP/processor. A full,
+  field-by-field mapping for **Worldpay Express** (Element Express) —
+  `HostResponseCode` → `declineCode`, `MerchantAdviceCode` → `merchantAdviceCode`,
+  `CardLogo` → `network`, `PaymentType` → `context`/`mitSubtype` — plus the
+  general recipe and a pointer table for Stripe / Adyen / Braintree / Checkout.com.
+  Clarifies the key gotcha: pass the **raw network code**, not the gateway's own
+  abstracted decline status.
+- **`examples/`** — runnable CIT (checkout) and MIT (dunning) walkthroughs against
+  Worldpay Express, plus a reusable `worldpay-express-mapping.ts` helper.
+- README "Using it with your PSP" section linking the above.
+
+Docs only — no changes to the engine or its rule tables.
+
+### Fixed
+
+- Corrected Stripe MAC field path to `charge.outcome.network_advice_code` (was
+  incorrectly pointed at `payment_method_details.card`).
+- `isExpressDecline()` now requires a non-empty `HostResponseCode`.
+- npm tarball now includes `docs/`, `examples/`, and `CHANGELOG.md`.
+
 ## [0.1.1] - 2026-07-07
 
 ### Fixed
@@ -46,5 +70,6 @@ releases; each entry notes the effective date and source.
 - Exported rule tables, constants, and best-practice heuristics.
 - Dual ESM + CJS builds with bundled TypeScript declarations.
 
+[0.1.2]: https://github.com/paynav-dev/reattempt/releases/tag/v0.1.2
 [0.1.1]: https://github.com/paynav-dev/reattempt/releases/tag/v0.1.1
 [0.1.0]: https://github.com/paynav-dev/reattempt/releases/tag/v0.1.0
