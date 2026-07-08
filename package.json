@@ -1,6 +1,6 @@
 {
   "name": "@paynav/reattempt",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Card-network retry-compliance engine: decide whether a declined Visa/Mastercard card-not-present transaction may be reattempted, why, the fee risk, and when the next attempt becomes eligible.",
   "keywords": [
     "visa",

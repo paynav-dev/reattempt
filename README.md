@@ -106,6 +106,20 @@ Integration shape:
   `recurring_revoked` / `hard_decline` verdict short-circuits into your
   "update your card" flow and pauses the subscription.
 
+## Using it with your PSP
+
+The engine takes **raw Visa/Mastercard network codes**, so it works behind any
+processor that surfaces them — feed it the raw issuer response code (and, for
+Mastercard, the Merchant Advice Code), not your gateway's own abstracted status.
+
+- **[docs/processors.md](./docs/processors.md)** — the field-by-field mapping.
+  A full worked mapping for **Worldpay Express** (`HostResponseCode` →
+  `declineCode`, `MerchantAdviceCode` → `merchantAdviceCode`, `CardLogo` →
+  `network`, `PaymentType` → `context`), plus the general recipe and where the
+  raw code lives for Stripe / Adyen / Braintree / Checkout.com.
+- **[examples/](./examples/)** — runnable CIT (checkout) and MIT (dunning)
+  walkthroughs against Worldpay Express, with a reusable mapping helper.
+
 ## API
 
 ### `evaluateReattempt(input): ReattemptDecision`
